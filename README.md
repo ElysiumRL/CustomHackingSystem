@@ -19,7 +19,7 @@ A Cyberpunk 2077 mod/tool that allows you to run hacking minigame instances with
   - Custom minigame Succeed & Fail events 
 
 # Creating mods
-
+## Regular Hacks
 ### Lua
 Lua is primarly used here in order to make TweakDB extensions (aka, your own minigame instance as well as the base for your programs)
 
@@ -186,7 +186,23 @@ public class GlobalInputListener
     }
 }
 ```
+#### 4. Instance Settings
 
+The parameters sent as inputs in the `StartNewHackInstance` function are stored in a `CustomHackingProperties` variable. You can access it in the Scriptable Program Actions using `this.hackInstanceSettings`. On top of the arguments passed in the `StartNewHackInstance` You will also find :
+ - hackAttempts (Int32)
+ > the number of attempts (in a row) for a given hack. This number will be reset if the NetworkName changes. If you want to store the real amount of hack attempts (without resets) you should add a field to the targeted object's persistent state.
+ - maximumHackAttempts (Int32)
+ > Maximum amount of attempts (in a row) for a given hack. if the hackAttempts is equal or superior to this value, the hack won't start.
+
+## Quickhacks
+
+### Lua
+
+### Redscript
+
+## Miscellaneous
+A lot of the code (and in-depth) work was cut off from this ("wiki") to make it as short and concise as possible. If you want to know more about the tool itself don't hesitate to check the out source code (small warning : it's a bit of a spaghetti code).
+You can also check out the [VehicleSecurityRework](https://github.com/ElysiumRL/VehicleSecurityRework) mod to see an example of the tool in a medium sized project.
 
 ## Contributing
 Found a Bug ? Have any ideas ? Want to contribute ? You can make a pull request here or contact me on Discord about it
