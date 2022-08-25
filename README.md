@@ -21,8 +21,9 @@ A Cyberpunk 2077 mod/tool that allows you to run hacking minigame instances with
 # Creating mods
 ## Regular Hacks
 ### Lua
-Lua is primarly used here in order to make TweakDB extensions (aka, your own minigame instance as well as the base for your programs)
+Lua is primarly used here in order to make TweakDB extensions (aka, your own minigame instance as well as the base for your programs).
 
+You can check out {lua}
 
 ### Redscript
 Redscript is the core of the tool. You will generally use redscript in order to :
@@ -197,8 +198,40 @@ The parameters sent as inputs in the `StartNewHackInstance` function are stored 
 ## Quickhacks
 
 ### Lua
+#### 1. Basics
+In order to get all of the available functions of the module in lua simply copy this line :
+```lua
+local Quickhack = GetMod("CustomHackingSystem")
+ ```
+Every functions are in (according to the line above) : `Quickhack.API`
+#### 2. Custom Quickhack TweakDBID
+In order to make the TweakDBID of the quickhack, you will (principally) need 4 things :
+ - A Name
+ - Quickhack Gameplay Category
+ - Interaction (UI)
+ - Cost
+ - (Optional) Cooldown before usage
+ - (Optional) Upload Time
+
+Here is an example to create a quickhack
+```lua
+--UIIcon (returns "CustomUIIcon.*quickhackName*")
+local templateIcon = Quickhack.API.CreateUIIcon("CommunicationCallOut","base\\gameplay\\gui\\common\\icons\\quickhacks_icons.inkatlas")
+--Gameplay Category (returns "ActionCategories.*quickhackName*")
+local templateCategory = Quickhack.API.CreateQuickhackGameplayCategory("QuickhackTemplate",forceBrakesIcon,LocKey(1234),LocKey(5555))
+--Quickhack Base Cost (returns "DeviceAction.*quickhackName*_*BaseCost*")
+local templateCost = Quickhack.API.CreateQuickhackMemoryStatModifier("QuickhackTemplate","BaseCost","Additive",4.00)
+--UI Interaction (returns "CustomInteractions.*quickhackName*")
+local templateInteraction = Quickhack.API.CreateInteractionUI("QuickhackTemplate",LocKey(1234),LocKey(5555),templateIcon)
+--Quickhack (returns "DeviceAction.*quickhackName*")
+local templateQuickhack = Quickhack.API.CreateQuickhack("QuickhackTemplate",templateCategory,templateInteraction,templateCost,11.00,0.75)
+```
+Note : the cost,cooldown & upload duration is reduced depending on the perks you obtained
+
 
 ### Redscript
+
+
 
 ## Miscellaneous
 A lot of the code (and in-depth) work was cut off from this ("wiki") to make it as short and concise as possible. If you want to know more about the tool itself don't hesitate to check the out source code (small warning : it's a bit of a spaghetti code).
