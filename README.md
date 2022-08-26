@@ -19,6 +19,7 @@ A Cyberpunk 2077 mod/tool that allows you to run hacking minigame instances with
   - Custom minigame Succeed & Fail events 
 
 # Creating mods
+This "tutorial/guide/wiki" requires you to read first the [Redscript](https://wiki.redmodding.org/redscript/) introduction page as well as the [CET](https://wiki.redmodding.org/cyber-engine-tweaks/) introduction page to get introduced to RED Modding and especially understand the basics and the syntax of redscript.
 ## Regular Hacks
 ### Lua
 Lua is primarly used here in order to make TweakDB extensions (aka, your own minigame instance as well as the base for your programs).
@@ -27,7 +28,7 @@ You can check out [this file](bin/x64/plugins/cyber_engine_tweaks/mods/CustomHac
 
 Note : most of the functions 
 
-You can also check out [all the available lua functions] (https://github.com/ElysiumRL/CustomHackingSystem/blob/main/bin/x64/plugins/cyber_engine_tweaks/mods/CustomHackingSystem/Modules/TweakDBUtils.lua) if you want to see how they work
+You can also check out [all the available lua functions](https://github.com/ElysiumRL/CustomHackingSystem/blob/main/bin/x64/plugins/cyber_engine_tweaks/mods/CustomHackingSystem/Modules/TweakDBUtils.lua) if you want to see how they work
 
 ### Redscript
 Redscript is the core of the tool. You will generally use redscript in order to :
