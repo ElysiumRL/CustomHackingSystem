@@ -23,7 +23,11 @@ A Cyberpunk 2077 mod/tool that allows you to run hacking minigame instances with
 ### Lua
 Lua is primarly used here in order to make TweakDB extensions (aka, your own minigame instance as well as the base for your programs).
 
-You can check out {lua}
+You can check out [this file](bin/x64/plugins/cyber_engine_tweaks/mods/CustomHackingSystem/Modules/HackTemplate.lua) to get an example of setting up the TweakDBIDs for the redscript part.
+
+Note : most of the functions 
+
+You can also check out [all the available lua functions] (https://github.com/ElysiumRL/CustomHackingSystem/blob/main/bin/x64/plugins/cyber_engine_tweaks/mods/CustomHackingSystem/Modules/TweakDBUtils.lua) if you want to see how they work
 
 ### Redscript
 Redscript is the core of the tool. You will generally use redscript in order to :
@@ -231,10 +235,104 @@ Note : the cost,cooldown & upload duration is reduced depending on the perks you
 
 ### Redscript
 
+Redscript part is relatively simple,for devices, all you have to do is :
+ - Create your Device Action (your quickhack)
+ - Setup the Action
+ - Register the Action
+ - Create the event for your quickhack
 
+
+#### 1. Device Action
+`Device Action` is a class that will be used to store all data needed for the quickhack as well as the TweakDBID of the quickhack (created in lua previously) :
+```swift
+public class QuickhackTemplateDevice extends ActionBool
+{
+    public final func SetProperties() -> Void
+    {
+        this.actionName = n"QuickhackTemplate";
+        this.prop = DeviceActionPropertyFunctions.SetUpProperty_Bool(this.actionName, true, this.actionName, this.actionName);
+    }
+}
+```
+Note : you generally want to match `actionName` with `quickhackName`
+
+#### 2. Setup the Action
+You are going to need a `Device` and a `ScriptableDeviceComponentPS`, most of all the devices do inherit from these classes.
+
+Here is an example on how to setup a DeviceAction using the `VehicleComponentPS` from the [VehicleSecurityRework](https://github.com/ElysiumRL/VehicleSecurityRework) mod 
+```swift
+//This function should be added in your device Persistent State
+@addMethod(VehicleComponentPS)
+private final const func ActionQuickhackTemplate() -> ref<QuickhackTemplateDevice>
+{
+    let action: ref<QuickhackTemplateDevice> = new QuickhackTemplateDevice();
+    action.clearanceLevel = DefaultActionsParametersHolder.GetInteractiveClearance();
+    action.SetUp(this);
+    action.SetProperties();
+    action.AddDeviceName(this.m_deviceName);
+
+    //This part is not needed if the ObjectActionID passed is from the original game (i.e : NOT A CUSTOM ONE)
+    let container: ref<ScriptableSystemsContainer> = GameInstance.GetScriptableSystemsContainer(this.GetGameInstance());
+    let customHackSystem:ref<CustomHackingSystem> = container.Get(n"HackingExtensions.CustomHackingSystem") as CustomHackingSystem;
+    customHackSystem.RegisterDeviceAction(action);
+    
+    action.SetObjectActionID(t"DeviceAction.MyCustomQuickhack");
+    //action.SetObjectActionID(t"DeviceAction.MalfunctionClassHack");
+
+    return action;
+}
+```
+#### 3. Using the Device Action
+In any `ScriptableDeviceComponentPS`, you can wrap (or replace depending on what you need) the `GetQuickHackActions` to add your own Quickhack (Device Action).
+
+Here is an example still using `VehicleComponentPS`
+```swift
+@wrapMethod(VehicleComponentPS)
+protected func GetQuickHackActions(out actions: array<ref<DeviceAction>>, context: GetActionsContext) -> Void
+{
+    let currentAction:ref<ScriptableDeviceAction>;
+    let shouldDisableQuickhack:Bool = false;
+
+    currentAction = this.ActionQuickhackTemplate();
+    //You can also disable a quickhack if needed
+    if shouldDisableQuickhack
+    {
+        currentAction.SetInactiveWithReason(false,"This quickhack is disabled ! (Don't forget the LocKeys here)");
+    }
+    //Add your quickhack into the actions array (very important)
+    ArrayPush(actions,currentAction);
+    
+    //Don't forget the wrappedMethod() too
+    wrappedMethod(actions,context);
+}
+```
+#### 4. Scripting Events
+Now that your quickhack is set up, you need to make some scripts for it (right?).
+Still in any `ScriptableDeviceComponentPS`, you'll need to add an event for your quickhack using the Device Action class you created
+```swift
+@addMethod(VehicleComponentPS)
+protected cb func OnActionQuickhackTemplateDevice(evt:ref<QuickhackTemplateDevice>) -> EntityNotificationType
+{
+    this.GetOwnerEntity().GetVehicleComponent().ExplodeVehicle(this.GetOwnerEntity());
+    //You can also choose to send the event to to a DeviceComponent and/or to a GameObject by changing the return type
+    //Most of the time, it is "not" needed and can be disregarded
+    return EntityNotificationType.DoNotNotifyEntity;
+    //return EntityNotificationType.SendThisEventToEntity;
+    //return EntityNotificationType.SendPSChangedEventToEntity;
+}
+```
+
+## Minigame Instances using Quickhacks
+
+### Lua
+When creating the TweakDB part of the quickhack, instead of using the `CreateQuickhack` function, use `CreateRemoteBreachQuickhack` instead. The steps are exactly the same as in the lua part of the Quickhack/Lua Section
+
+### Redscript
+
+If you want to launch a custom minigame instance with quickhacks (like the `RemoteBreach` quickhack), instead of using a `DeviceAction`,use the `CustomAccessBreach` class and follow the same steps from the Quickhack/Redscript section 
 
 ## Miscellaneous
-A lot of the code (and in-depth) work was cut off from this ("wiki") to make it as short and concise as possible. If you want to know more about the tool itself don't hesitate to check the out source code (small warning : it's a bit of a spaghetti code).
+A lot of the code (and in-depth) work was cut off from this "wiki/guide" to make it as "short and concise" as possible. If you want to know more about the tool itself don't hesitate to check the out source code (small warning : it's a bit of a spaghetti code).
 You can also check out the [VehicleSecurityRework](https://github.com/ElysiumRL/VehicleSecurityRework) mod to see an example of the tool in a medium sized project.
 
 ## Contributing
