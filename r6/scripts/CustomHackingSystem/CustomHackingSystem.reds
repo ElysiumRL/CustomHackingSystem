@@ -213,7 +213,6 @@ public class CustomHackingSystem extends ScriptableSystem
 		this.settings.onFailed = onFailed;
 	}
 
-
 	//Executes custom functions for succeeded programs
 	public func ResolveHackingActivePrograms(evt: Variant) -> Void
 	{
