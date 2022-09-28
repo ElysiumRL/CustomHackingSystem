@@ -125,7 +125,7 @@ public class CustomHackingSystem extends ScriptableSystem
 	}
 
 	//Returns the Player Puppet class
-	public const func GetPlayer() -> ref<PlayerPuppet>
+	public const func GetPlayer() -> wref<PlayerPuppet>
 	{
 		return GetPlayer(this.gameInstance);
 	}
@@ -256,6 +256,13 @@ public class CustomHackingSystem extends ScriptableSystem
 					else
 					{
 						currentProgram.ExecuteProgramFailure();
+					}
+					let programTDBID:wref<MinigameAction_Record> = TweakDBInterface.GetMinigameActionRecord(program);
+					let rewards:array<wref<RewardBase_Record>>;
+					programTDBID.Rewards(rewards);
+					for reward in rewards
+					{
+						RPGManager.GiveReward(this.gameInstance, reward.GetID(), Cast<StatsObjectID>(this.GetPlayer().GetEntityID()));
 					}
 				}
 				else
@@ -490,7 +497,7 @@ public class CustomHackingSystem extends ScriptableSystem
 		if (!IsDefined(this.hackingStateListener))
 		{
 			this.hackingStateListener = this.GetHackingMinigameBB().RegisterListenerInt(GetAllBlackboardDefs().HackingMinigame.State, this, n"ResolveHackingState",true);
-		
+			
 			if (!IsDefined(this.hackingStateListener))
 			{
 				this.Log("[CustomHackingSystem] Hacking State Listener not found in Blackboard. Hack Request will be cancelled");
