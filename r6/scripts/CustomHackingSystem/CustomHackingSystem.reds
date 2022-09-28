@@ -166,7 +166,6 @@ public class CustomHackingSystem extends ScriptableSystem
 		return GetAllBlackboardDefs().HackingMinigame;
 	}
 
-
 	//Sets up the minigame settings & opens up the Hacking Minigame interface
 	private func DisplayConnectionWindowOnPlayerHUD() -> Void
 	{
@@ -625,6 +624,8 @@ public class CustomHackingProperties extends IScriptable
 		instance.additionalData = additionalData;
 		instance.onSucceed = onSucceed;
 		instance.onFailed = onFailed;
+
+		
 
 		return instance;
 	}
