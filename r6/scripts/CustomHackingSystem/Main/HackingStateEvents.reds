@@ -2,6 +2,8 @@
 
 module HackingExtensions
 
+//TODO: replace this by DelayCallback
+
 public class CustomHackingStateEvent extends IScriptable
 {
 	//Game Instance

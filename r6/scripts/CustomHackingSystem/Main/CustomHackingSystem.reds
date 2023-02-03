@@ -12,12 +12,18 @@ protected cb func OnGameAttached() -> Bool
 	wrappedMethod();
 }
 
+//Event request used to fix an issue with quickhacks
+public class QuickhackProgramResolver extends ScriptableSystemRequest
+{
+	public let activePrograms:Variant;
+}
+
 public class CustomHackingSystem extends ScriptableSystem
 {
 
 	//////////////////////////////////////////////////////////
 
-	//The magical "button" to clear CET from all the annoying debug logs
+	//The magical "button" to clear the console logs
 	public let enableDebugLogs:Bool = false;
 	
 	//////////////////////////////////////////////////////////
@@ -69,7 +75,7 @@ public class CustomHackingSystem extends ScriptableSystem
 					this.isPlayerCurrentlyHacking = false;
 					this.programsHashMap = new inkHashMap();
 					this.customDeviceActions = new StringHashMap();
-					this.GenerateAllProgramsActions();
+					this.GenerateDefaultPrograms();
 					this.isModuleInitialized = true;
 					this.Log("[CustomHackingSystem] Module Initialized");
 				}
@@ -89,9 +95,9 @@ public class CustomHackingSystem extends ScriptableSystem
 
 
 
-	//Generates all DEFAULT program actions
+	//Generates all default program actions
 	//If you want to add your own program action, use AddProgramAction in your own scripts
-	protected func GenerateAllProgramsActions()
+	protected func GenerateDefaultPrograms()
 	{
 		//Dummy Example, use AddProgramAction instead
 		//this.programsHashMap.Insert(TDBID.ToNumber(t"MinigameAction.NetworkDataMineLootAllMaster"),new NetworkLootMasterRewardProgramAction());
@@ -100,7 +106,6 @@ public class CustomHackingSystem extends ScriptableSystem
 		this.AddProgramAction(t"MinigameAction.NetworkDataMineLootAll", new NetworkLootBasicRewardProgramAction());
 		this.AddProgramAction(t"MinigameAction.NetworkDataMineLootAllAdvanced", new NetworkLootAdvancedRewardProgramAction());
 		this.AddProgramAction(t"MinigameAction.NetworkDataMineLootAllMaster", new NetworkLootMasterRewardProgramAction());
-		this.AddProgramAction(t"MinigameProgramAction.Nuts", new NutRingProgramAction());
 	}
 
 	//Adds a Program Action in the Program Action hash map. This is super important if you want the system to trigger gameplay
@@ -667,10 +672,3 @@ public class CustomHackingProperties extends IScriptable
 	}
 
 }
-
-//Event request used to fix an issue with quickhacks
-public class QuickhackProgramResolver extends ScriptableSystemRequest
-{
-	public let activePrograms:Variant;
-}
-

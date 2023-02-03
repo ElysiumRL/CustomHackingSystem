@@ -377,27 +377,3 @@ public class GainAccessRewardProgramAction extends HackProgramAction
 	}
 
 }
-
-////////////////////////////////////////////////////////////////////////
-
-//Custom addons
-
-public class NutRingProgramAction extends LootRewardProgramActions
-{
-	protected func ExecuteProgramSuccess() -> Void
-	{
-		let ts:ref<TransactionSystem> = GameInstance.GetTransactionSystem(this.gameInstance);
-
-		//5 "Moore Tech Berserk Mk.1", without game amount scaling & without game amount randomizer
-		let loot:CustomLootReward = new CustomLootReward(t"Items.BerserkC1MK1",5u,false,false);
-
-		//Gives the reward to the player & displays UI
-		this.AddReward(ts, [loot]);
-	}
-
-	protected func ExecuteProgramFailure() -> Void
-	{
-		//LogChannel(n"DEBUG","Nuts Failed");
-	}
-
-}

@@ -1,10 +1,12 @@
 module CustomHackingSystem.Tools
-//Hashmap<string,Variant>
+
+//this is the wrong name it's not a hashmap, it's more of a dictionary/set than anything else
+//and it also is a kinda badly optimized one on top of that
 public class StringHashMap extends IScriptable
 {
-    public let keys: array<String>;
-    public let values: array<ref<IScriptable>>;
-    
+    protected let keys: array<String>;
+    protected let values: array<ref<IScriptable>>;
+
     public final func Insert(key: String, value: ref<IScriptable>) -> Void
     {
         if !ArrayContains(this.keys,key)
@@ -13,8 +15,9 @@ public class StringHashMap extends IScriptable
             ArrayResize(this.values,ArraySize(this.keys));
         }
         this.Set(key, value);
+        
     }
-
+    
     public final func Get(key: String) -> wref<IScriptable>
     {
         let i:Int32 = 0;
