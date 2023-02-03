@@ -44,10 +44,9 @@ function Template.Generate()
 	--The order matters : first program you add here will be displayed on top, 2nd on 2nd row etc...
 	local myCustomPrograms =
 	{
-		NUTSProgram,
 		datamineV1Program,
-		datamineV2Program
-		--datamineV3Program
+		datamineV2Program,
+		datamineV3Program
 	}
 	local myMinigameWithMyPrograms = api.CreateHackingMinigame("MyMinigame",0.00,9,40,10,myCustomPrograms,{})
 

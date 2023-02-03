@@ -16,7 +16,7 @@ function CustomHackingSystem:new()
 		end
 
 	--#region Params
-		local addTemplateToGame = false
+		local addTemplateToGame = true
 	--#endregion
 
 	--#region Template

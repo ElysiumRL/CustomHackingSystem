@@ -69,6 +69,7 @@ function API.CreateProgramAction(programName,programActionType,minigameCategory,
 	TweakDB:SetFlat(programName..".category",minigameCategory)
 	TweakDB:SetFlat(programName..".objectActionUI",programActionUI)
 	TweakDB:SetFlat(programName..".complexity",difficulty)
+	TweakDB:SetFlat(programName..".rewards",{"RPGActionRewards.Hacking"})
 
 	return programName
 end
@@ -126,7 +127,7 @@ function API.CreateRemoteBreachQuickhack(quickhackName,gameplayCategory,quickhac
 	--5th element in the array corresponds to the mem real cost, others are memory reduction & target resistance (or whatever that means)
 	TweakDB:SetFlat(quickhackPath..".actionName",quickhackName)
 	TweakDB:SetFlat(quickhackPath..".costs",	{quickhackCostStatPoolPath})
-	TweakDB:SetFlat(quickhackPath..".gameplayCategory",gameplayCategory)
+	--TweakDB:SetFlat(quickhackPath..".gameplayCategory",gameplayCategory)
 	TweakDB:SetFlat(quickhackPath..".objectActionUI",quickhackInteractionBaseUI)
 	TweakDB:SetFlat(quickhackPath..".rewards",{"RPGActionRewards.CombatHacking"})
 	TweakDB:SetFlat(quickhackPath..".targetActivePrereqs",{})
@@ -235,7 +236,7 @@ function API.CreateQuickhack(quickhackName,gameplayCategory,quickhackInteraction
 	--5th element in the array corresponds to the mem real cost, others are memory reduction & target resistance (or whatever that means)
 	TweakDB:SetFlat(quickhackPath..".actionName",quickhackName)
 	TweakDB:SetFlat(quickhackPath..".costs",	{quickhackCostStatPoolPath})
-	TweakDB:SetFlat(quickhackPath..".gameplayCategory",gameplayCategory)
+	--TweakDB:SetFlat(quickhackPath..".gameplayCategory",gameplayCategory)
 	TweakDB:SetFlat(quickhackPath..".objectActionUI",quickhackInteractionBaseUI)
 	TweakDB:SetFlat(quickhackPath..".targetActivePrereqs",{})
 
