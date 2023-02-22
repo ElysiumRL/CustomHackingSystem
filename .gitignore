@@ -2,3 +2,5 @@
 *.log
 *.sqlite3
 *.bat
+r6/scripts/CustomHackingSystem/Minigames/**
+!r6/scripts/CustomHackingSystem/Minigames/*
