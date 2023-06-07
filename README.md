@@ -9,6 +9,7 @@ A Cyberpunk 2077 mod/tool that allows you to run hacking minigame instances with
  - [Redscript](https://www.nexusmods.com/cyberpunk2077/mods/1511)
  - [TweakXL](https://www.nexusmods.com/cyberpunk2077/mods/4197)
  - [RED4ext](https://www.nexusmods.com/cyberpunk2077/mods/2380)
+ - [Codeware](https://github.com/psiberx/cp2077-codeware)
 
 ### Installing the mod
  1. Make sure all the Requirements above are installed
