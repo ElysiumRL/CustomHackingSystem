@@ -4,7 +4,7 @@ import Codeware.UI.*
 
 //Also named "Workbench" from InkPlayground
 //This is the base widget for the popups
-public class BaseWidget extends inkCustomController
+public class BaseWidget extends HackingMinigameCustomController
 {
 	protected let m_root: wref<inkFlex>;
 
@@ -19,9 +19,11 @@ public class BaseWidget extends inkCustomController
 
 		let background: ref<inkRectangle> = new inkRectangle();
 		background.SetAnchor(inkEAnchor.Fill);
-		background.SetMargin(new inkMargin(8.0, 8.0, 8.0, 8.0));
+		//background.SetMargin(new inkMargin(8.0, 8.0, 8.0, 8.0));
 		background.SetTintColor(MainColors.Black());
-		background.SetOpacity(0.217);
+		//background.SetOpacity(0.217);
+		background.SetOpacity(0.75);
+
 		background.Reparent(workbench);
 
 		let pattern: ref<inkImage> = new inkImage();

@@ -5,7 +5,7 @@ import HackingExtensions.Programs.*
 
 
 //Default Custom Minigame Template : All your new minigames should extend this class
-public abstract class CustomMinigame extends inkCustomController
+public abstract class CustomMinigame extends HackingMinigameCustomController
 {
 
     //Widget Root
