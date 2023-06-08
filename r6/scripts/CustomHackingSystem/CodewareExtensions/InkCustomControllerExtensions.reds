@@ -200,8 +200,12 @@ public abstract class HackingMinigameCustomController extends inkCustomControlle
     		//}
     		let margin = this.m_rootWidget.GetMargin();
     
-    		let newPosition:String = NameToString(this.m_rootWidget.GetName()) + " : new Vector2(" + FloatToStringPrec(margin.left,2) + "," + FloatToStringPrec(margin.top,2) + ")";
-    		LogChannel(n"DEBUG",newPosition);
+    		
+			//The debug here is to know the actual location of the widget after the drag
+			//It's quite useful when placing a lot of widgets and then setting the actual location in code
+			//let newPosition: String = NameToString(this.m_rootWidget.GetName()) + " : new Vector2(" + FloatToStringPrec(margin.left,2) + "," + FloatToStringPrec(margin.top,2) + ")";
+			//LogChannel(n"DEBUG",newPosition);
+
     		this.m_isDragged = false;
     		this.UnregisterFromGlobalInputCallback(n"OnPostOnRelative", this, n"OnGlobalMove");
     		this.UnregisterFromGlobalInputCallback(n"OnPostOnRelease", this, n"OnGlobalRelease");
