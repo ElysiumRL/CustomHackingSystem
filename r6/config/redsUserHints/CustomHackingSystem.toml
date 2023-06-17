@@ -1,0 +1,15 @@
+[[UNRESOLVED_TYPE]]
+id = "MISSING_CODEWARE"
+file = "CustomHackingSystem/CodewareExtensions/InkCustomControllerExtensions.reds"
+line_contains  = "inkCustomController"
+message = "CustomHackingSystem depends on Codeware but it seems you don't have it installed. Make sure it is installed properly"
+
+[[UNRESOLVED_METHOD]]
+id = "MISSING_TWEAKXL"
+line_contains  = "TweakDBInterface"
+message = "TweakXL mod not found. Try to reinstall it and make sure you have the latest version of the game."
+
+[[UNRESOLVED_METHOD]]
+id = "MISSING_TWEAKXL"
+line_contains  = "TweakDBManager"
+message = "TweakXL mod not found. Try to reinstall it and make sure you have the latest version of the game."
