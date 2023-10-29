@@ -164,7 +164,7 @@ public abstract class CustomMinigame extends HackingMinigameCustomController
 			}
 			else
 			{
-				LogChannel(n"DEBUG","Current Program " + TDBID.ToStringDEBUG(program) + " not found");
+				//LogChannel(n"DEBUG","Current Program " + TDBID.ToStringDEBUG(program) + " not found");
 			}
 		}
     }

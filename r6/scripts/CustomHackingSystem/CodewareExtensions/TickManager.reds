@@ -29,7 +29,7 @@ public class TickUpdateEvent extends Event
 		}
 		else
 		{
-			LogChannel(n"DEBUG","[TickUpdateEvent::SetGameInstance] Game Instance passed is not valid");
+			//LogChannel(n"DEBUG","[TickUpdateEvent::SetGameInstance] Game Instance passed is not valid");
 		}
 	}
 
@@ -72,12 +72,12 @@ public class InkObjectTickManager extends ScriptableSystem
     {
         if(!this.allowObjectRegistrations)
         {
-            LogChannel(n"DEBUG","[InkObjectTickManager::RegisterObject] target can't be registered. Object Registrations is not yet available");
+            //LogChannel(n"DEBUG","[InkObjectTickManager::RegisterObject] target can't be registered. Object Registrations is not yet available");
             return false;
         }
         if(!target.ShouldRegisterForTickEvent())
         {
-            LogChannel(n"DEBUG","[InkObjectTickManager::RegisterObject] target can't be registered. Make sure you implemented inkCustomController::ShouldRegisterForTickEvent and set the return value as true in order to register the target to the tick manager");
+            //LogChannel(n"DEBUG","[InkObjectTickManager::RegisterObject] target can't be registered. Make sure you implemented inkCustomController::ShouldRegisterForTickEvent and set the return value as true in order to register the target to the tick manager");
             return false;
         }
         ArrayPush(this.objectsRegistered,target);

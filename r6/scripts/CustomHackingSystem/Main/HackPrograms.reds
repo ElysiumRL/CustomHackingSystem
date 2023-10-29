@@ -27,7 +27,7 @@ public abstract class HackProgramAction extends IScriptable
 	{
 		if(!GameInstance.IsValid(this.gameInstance))
 		{
-			LogChannel(n"DEBUG","[Custom Hacking System] GameInstance passed is Not Valid (HackProgramAction)");
+			//LogChannel(n"DEBUG","[Custom Hacking System] GameInstance passed is Not Valid (HackProgramAction)");
 		}
 		return GetPlayer(this.gameInstance);
 	}
@@ -36,7 +36,7 @@ public abstract class HackProgramAction extends IScriptable
 	{
 		if(!GameInstance.IsValid(this.gameInstance))
 		{
-			LogChannel(n"DEBUG","[Custom Hacking System] GameInstance passed is Not Valid (HackProgramAction)");
+			//LogChannel(n"DEBUG","[Custom Hacking System] GameInstance passed is Not Valid (HackProgramAction)");
 		}
 
 		return GetPlayer(this.gameInstance).GetPS();

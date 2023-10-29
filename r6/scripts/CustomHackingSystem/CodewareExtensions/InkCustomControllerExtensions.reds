@@ -50,7 +50,7 @@ public abstract class HackingMinigameCustomController extends inkCustomControlle
 			this.m_isRegisteredForTickEvent = inkObjectTickManager.RegisterObject(this);
 			if(!this.m_isRegisteredForTickEvent)
 			{
-				LogChannel(n"DEBUG","[inkCustomController::OnInitialize()] Object failed to register to Tick Event");
+				//LogChannel(n"DEBUG","[inkCustomController::OnInitialize()] Object failed to register to Tick Event");
 			}
 		}
 	}
@@ -198,10 +198,11 @@ public abstract class HackingMinigameCustomController extends inkCustomControlle
     		//cursor.Y -= 1920.0;
     		//	break;				
     		//}
-    		let margin = this.m_rootWidget.GetMargin();
-    
-    		let newPosition:String = NameToString(this.m_rootWidget.GetName()) + " : new Vector2(" + FloatToStringPrec(margin.left,2) + "," + FloatToStringPrec(margin.top,2) + ")";
-    		LogChannel(n"DEBUG",newPosition);
+
+    		//let margin = this.m_rootWidget.GetMargin();
+    		//let newPosition:String = NameToString(this.m_rootWidget.GetName()) + " : new Vector2(" + FloatToStringPrec(margin.left,2) + "," + FloatToStringPrec(margin.top,2) + ")";
+    		//LogChannel(n"DEBUG",newPosition);
+			
     		this.m_isDragged = false;
     		this.UnregisterFromGlobalInputCallback(n"OnPostOnRelative", this, n"OnGlobalMove");
     		this.UnregisterFromGlobalInputCallback(n"OnPostOnRelease", this, n"OnGlobalRelease");

@@ -151,7 +151,7 @@ public class InkImageWidget extends HackingMinigameCustomController
         }
         else
         {
-            LogChannel(n"DEBUG","Texture provided is not valid");
+            //LogChannel(n"DEBUG","Texture provided is not valid");
         }
     }
 

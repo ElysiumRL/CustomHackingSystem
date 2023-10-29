@@ -23,7 +23,7 @@ function CustomHackingSystem:new()
 		if addTemplateToGame then
 			local Template = require("Modules/HackTemplate.lua")
 			Template.Generate()
-			print("[Custom Hacking System] Template Generated!")
+			--print("[Custom Hacking System] Template Generated!")
 		end
 	--#endregion
 	end)

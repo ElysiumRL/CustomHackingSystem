@@ -131,6 +131,8 @@ function API.CreateRemoteBreachQuickhack(quickhackName,gameplayCategory,quickhac
 	TweakDB:SetFlat(quickhackPath..".objectActionUI",quickhackInteractionBaseUI)
 	TweakDB:SetFlat(quickhackPath..".rewards",{"RPGActionRewards.CombatHacking"})
 	TweakDB:SetFlat(quickhackPath..".targetActivePrereqs",{})
+	TweakDB:SetFlat(quickhackPath..".instigatorPrereqs",{})
+
 
 	if cooldownTime ~= 0.0 then
 		local cooldown = API.CreateCooldown(quickhackName,cooldownTime,"RemoteBreach",LocKey(14985))
@@ -143,11 +145,7 @@ function API.CreateRemoteBreachQuickhack(quickhackName,gameplayCategory,quickhac
 
 	)
 	local cooldownPrereq = API.CreateCooldownPrereq(cooldown.ObjectAction,cooldown.StatusEffect)
-		TweakDB:SetFlat(quickhackPath..".instigatorPrereqs",
-		{
-			"QuickHack.QuickHack_inline3",
-			cooldownPrereq
-		})
+		TweakDB:SetFlat(quickhackPath..".instigatorPrereqs",{ cooldownPrereq})
 	else
 		TweakDB:SetFlat(quickhackPath..".startEffects",
 		{

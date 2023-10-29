@@ -265,7 +265,7 @@ public class InkVideoWidget extends HackingMinigameCustomController
         }
         else
         {
-            LogChannel(n"DEBUG","[InkVideoWidget::PlayOnce] : videoPath provided is not valid");
+            //LogChannel(n"DEBUG","[InkVideoWidget::PlayOnce] : videoPath provided is not valid");
         }
 
     }
@@ -294,7 +294,7 @@ public class InkVideoWidget extends HackingMinigameCustomController
         }
         else
         {
-            LogChannel(n"DEBUG","[InkVideoWidget::PlayLooped] : videoPath provided is not valid");
+            //LogChannel(n"DEBUG","[InkVideoWidget::PlayLooped] : videoPath provided is not valid");
         }
     }
 
@@ -312,7 +312,7 @@ public class InkVideoWidget extends HackingMinigameCustomController
             this.video.Play();
             return;
         }
-        LogChannel(n"DEBUG","[InkVideoWidget::PlayVideoWithParams] : videoPath provided is not valid");
+        //LogChannel(n"DEBUG","[InkVideoWidget::PlayVideoWithParams] : videoPath provided is not valid");
     }
 
     //DO NOT CHANGE VIDEO FRAMERATE WHEN USING THIS FUNCTION (as this could mess with the delay)

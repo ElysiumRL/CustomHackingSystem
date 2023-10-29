@@ -51,7 +51,7 @@ public class CustomHackingSystem extends ScriptableSystem
 	
 	let canRunProgramActions:Bool;
 
-	public let customDeviceActions: ref<StringHashMap>;
+	public let customDeviceActions: ref<CNameIScriptableDictionary>;
 	
 	public let lastActivePrograms:Variant;
 
@@ -74,7 +74,7 @@ public class CustomHackingSystem extends ScriptableSystem
 					this.currentMinigameState = HackingMinigameState.Unknown;
 					this.isPlayerCurrentlyHacking = false;
 					this.programsHashMap = new inkHashMap();
-					this.customDeviceActions = new StringHashMap();
+					this.customDeviceActions = new CNameIScriptableDictionary();
 					this.GenerateDefaultPrograms();
 					this.isModuleInitialized = true;
 					this.Log("[CustomHackingSystem] Module Initialized");
@@ -124,9 +124,9 @@ public class CustomHackingSystem extends ScriptableSystem
 	{
 		if(!IsDefined(this.customDeviceActions))
 		{
-			this.customDeviceActions = new StringHashMap();
+			this.customDeviceActions = new CNameIScriptableDictionary();
 		}
-		this.customDeviceActions.Insert(NameToString(action.actionName), action);
+		this.customDeviceActions.Insert(action.actionName, action);
 	}
 
 	//Returns the Player Puppet class
@@ -184,7 +184,6 @@ public class CustomHackingSystem extends ScriptableSystem
 	}
 
 	//Terminates the Hacking Minigame Interface
-	//TODO possibly remove it as it might be useless
 	private func TerminateConnectionWindowOnPlayerHUD() -> Void
 	{
 		let invalidID: EntityID;
@@ -323,7 +322,6 @@ public class CustomHackingSystem extends ScriptableSystem
 					return;
 				case HackingMinigameState.Succeeded:
 					this.Log("Hacking Minigame State : Succeeded");
-
 					if IsDefined(this.settings.onSucceed)
 					{
 						this.settings.onSucceed.gameInstance = this.gameInstance;
@@ -584,8 +582,7 @@ public class CustomHackingSystem extends ScriptableSystem
 	{
 		if this.enableDebugLogs
 		{
-			LogChannel(n"DEBUG",str);
-
+			//LogChannel(n"DEBUG",str);
 		}
 	}
 }
@@ -629,9 +626,7 @@ public class CustomHackingProperties extends IScriptable
 		instance.additionalData = additionalData;
 		instance.onSucceed = onSucceed;
 		instance.onFailed = onFailed;
-
-		
-
+	
 		return instance;
 	}
 
