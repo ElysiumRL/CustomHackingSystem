@@ -29,6 +29,8 @@ public abstract class CustomMinigame extends HackingMinigameCustomController
     //Current program being tested (generally use this if the minigame is separated into instances)
     protected let currentProgramIndex: Int32;
 
+    protected let accessPoint : ref<AccessPoint>;
+
     //Here should be the place where all the minigame default values are set
     public func SetMinigameDefaults() -> Void
     {
@@ -167,5 +169,15 @@ public abstract class CustomMinigame extends HackingMinigameCustomController
 				//LogChannel(n"DEBUG","Current Program " + TDBID.ToStringDEBUG(program) + " not found");
 			}
 		}
+
+        if(NotEquals(this.accessPoint,null))
+        {
+            let notifyMinigameStatusForDeviceEvt: ref<AccessPointMiniGameStatus> = new AccessPointMiniGameStatus();
+            notifyMinigameStatusForDeviceEvt.minigameState = this.minigameState;
+            this.accessPoint.QueueEvent(notifyMinigameStatusForDeviceEvt);
+            this.accessPoint.GetDevicePS().FinalizeNetrunnerDive(this.minigameState);
+            //LogChannel(n"DEBUG","Done");
+        }
+
     }
 }
