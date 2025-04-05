@@ -111,6 +111,7 @@ public final static func TranslateActionsIntoQuickSlotCommands(const actions: ar
         newCommand.m_quality = playerQHacksList[i].quality;
         newCommand.m_costRaw = BaseScriptableAction.GetBaseCostStatic(playerRef, actionRecord);
         newCommand.m_category = actionRecord.HackCategory();
+
         ArrayClear(actionCompletionEffects);
         actionRecord.CompletionEffects(actionCompletionEffects);
         newCommand.m_actionCompletionEffects = actionCompletionEffects;
@@ -143,9 +144,10 @@ public final static func TranslateActionsIntoQuickSlotCommands(const actions: ar
             };
           };
           newCommand.m_cost = sAction.GetCost();
+          
           newCommand.m_awarenessCost = sAction.GetAwarenessCost(gameObject.GetGame());
-          newCommand.m_showRevealInfo = newCommand.m_awarenessCost > 0.00 && !playerRef.IsInCombat();
-          newCommand.m_willReveal = !playerRef.IsBeingRevealed();
+          newCommand.m_showRevealInfo = QuickHackableHelper.ShouldShowRevealInfo( playerRef, newCommand.m_awarenessCost); //newCommand.m_awarenessCost > 0.00 && !playerRef.IsInCombat();
+          newCommand.m_willReveal = QuickHackableHelper.WillHackRevealPlayer( playerRef, GameObject.GetTDBID(gameObject), sAction, newCommand.m_itemID ); //!playerRef.IsBeingRevealed();
           if sAction.IsInactive()
           {
             newCommand.m_isLocked = true;
