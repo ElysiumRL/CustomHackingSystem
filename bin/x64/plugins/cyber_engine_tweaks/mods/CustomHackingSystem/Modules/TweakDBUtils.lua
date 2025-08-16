@@ -17,7 +17,9 @@ API = {}
 ---@return string String 
 function API.CreateHackingMinigame(minigameName,defaultTimeLimit,gridSize,extraDifficulty,bufferSize,programsToAdd)
 	minigameName = "CustomHackingSystemMinigame."..minigameName
-	TweakDB:CloneRecord(minigameName,"minigame_v2.DefaultMinigame")
+	if TweakDB:GetRecord(minigameName) == nil then
+		TweakDB:CloneRecord(minigameName,"minigame_v2.DefaultMinigame")
+	end
 	TweakDB:SetFlat(minigameName..".timeLimit",defaultTimeLimit)
 	TweakDB:SetFlat(minigameName..".gridSize",gridSize)
 	TweakDB:SetFlat(minigameName..".extraDifficulty",extraDifficulty)
@@ -31,17 +33,26 @@ end
 ---@param minigameCategoryName String Name of the Minigame Category
 ---@return string ReturnValue TweakDB String record path of that new category
 function API.CreateHackingMinigameCategory(minigameCategoryName)
-	TweakDB:CreateRecord("MinigameCategory."..minigameCategoryName, "gamedataMinigameCategory_Record")
-	TweakDB:SetFlat("MinigameCategory."..minigameCategoryName..".enumName",minigameCategoryName)
-	return "MinigameCategory."..minigameCategoryName
+	local minigameRecordCategoryName = "MinigameCategory."..minigameCategoryName
+
+	if TweakDB:GetRecord(minigameRecordCategoryName) == nil then
+		TweakDB:CreateRecord(minigameRecordCategoryName, "gamedataMinigameCategory_Record")
+	end
+
+	TweakDB:SetFlat(minigameRecordCategoryName..".enumName",minigameCategoryName)
+
+	return minigameRecordCategoryName
 end
 
 ---@param programTypeName String Name of the Program Action Type
 ---@return string ReturnValue TweakDB String record path of that new action type
 function API.CreateProgramActionType(programTypeName)
-	TweakDB:CreateRecord("MinigameActionType."..programTypeName, "gamedataMinigameActionType_Record")
-	TweakDB:SetFlat("MinigameActionType."..programTypeName..".enumName",programTypeName)
-	return "MinigameActionType."..programTypeName
+	local minigameActionTypeName = "MinigameActionType."..programTypeName
+	if TweakDB:GetRecord(minigameActionTypeName) == nil then
+		TweakDB:CreateRecord(minigameActionTypeName, "gamedataMinigameActionType_Record")
+	end
+	TweakDB:SetFlat(minigameActionTypeName..".enumName",programTypeName)
+	return minigameActionTypeName
 end
 
 ---@return string ReturnValue TweakDB Record Path of the new program
@@ -49,8 +60,13 @@ function API.CreateProgram(programName,programAction_recordPath,bufferSize)
 	bufferSize = math.max(bufferSize,1) or 4
 
 	programName = "MinigameProgram."..programName
-	TweakDB:CloneRecord(programName,"minigame_v2.DefaultItemMinigame_inline0")
+
+	if TweakDB:GetRecord(programName) == nil then
+		TweakDB:CloneRecord(programName,"minigame_v2.DefaultItemMinigame_inline0")
+	end
+
 	TweakDB:SetFlat(programName..".program",programAction_recordPath)
+
 	local bufferTable = {}
 	for i = 1, bufferSize do
 		bufferTable[i] = -1
@@ -64,7 +80,11 @@ function API.CreateProgramAction(programName,programActionType,minigameCategory,
 	difficulty = difficulty or 0
 
 	programName = "MinigameProgramAction."..programName
-	TweakDB:CloneRecord(programName,"MinigameAction.NetworkDataMineLootAllMaster")
+
+	if TweakDB:GetRecord(programName) == nil then
+		TweakDB:CloneRecord(programName,"MinigameAction.NetworkDataMineLootAllMaster")
+	end
+
 	TweakDB:SetFlat(programName..".type",programActionType)
 	TweakDB:SetFlat(programName..".category",minigameCategory)
 	TweakDB:SetFlat(programName..".objectActionUI",programActionUI)
@@ -77,11 +97,19 @@ end
 function API.CreateProgramActionUI(actionUIName,caption_LocKey,description_LocKey,icon_TDBID)
 	local defaultUIName = actionUIName
 	actionUIName = "MinigameProgramActionUI."..actionUIName
-	TweakDB:CloneRecord(actionUIName,"Interactions.NetworkGainAccessProgram")
+
+	if TweakDB:GetRecord(actionUIName) == nil then
+		TweakDB:CloneRecord(actionUIName,"Interactions.NetworkGainAccessProgram")
+	end
+
 	TweakDB:SetFlat(actionUIName..".caption",caption_LocKey)
 
 	local captionIcon = "UICaptionIcon."..defaultUIName
-	TweakDB:CreateRecord(captionIcon,"gamedataChoiceCaptionIconPart_Record")
+
+	if TweakDB:GetRecord(captionIcon) == nil then
+		TweakDB:CreateRecord(captionIcon,"gamedataChoiceCaptionIconPart_Record")
+	end
+
 	TweakDB:SetFlat(captionIcon..".mappinVariant","Mappins.InvalidVariant")
 	TweakDB:SetFlat(captionIcon..".partType","ChoiceCaptionPartType.Icon")
 	TweakDB:SetFlat(captionIcon..".texturePartID",icon_TDBID)
@@ -96,7 +124,10 @@ end
 
 function API.CreateUIIcon(partName,atlasPath)
 	local iconPath = "CustomUIIcon."..partName
-	TweakDB:CreateRecord(iconPath,"gamedataUIIcon_Record")
+
+	if TweakDB:GetRecord(iconPath) == nil then
+		TweakDB:CreateRecord(iconPath,"gamedataUIIcon_Record")
+	end
 	TweakDB:SetFlat(iconPath..".atlasPartName",CName.new(partName))
 	TweakDB:SetFlat(iconPath..".atlasResourcePath",atlasPath)
 	return iconPath;
@@ -107,12 +138,21 @@ end
 --#region Quickhacks
 
 function API.CreateRemoteBreachQuickhack(quickhackName,gameplayCategory,quickhackInteractionBaseUI,cost,cooldownTime)
-	TweakDB:CloneRecord("DeviceAction."..quickhackName,"DeviceAction.RemoteBreach")
-	local quickhackPath = "DeviceAction."..quickhackName
+	local deviceActionRecordName = "DeviceAction."..quickhackName
+
+	if TweakDB:GetRecord(deviceActionRecordName) == nil then
+		TweakDB:CloneRecord(deviceActionRecordName,"DeviceAction.RemoteBreach")
+	end
+
+	local quickhackPath = deviceActionRecordName
 
 	--local quickhackCostPath = Quickhack.CreateQuickhackMemoryStatModifier(quickhackName,"CostValue","Additive",cost)
-	TweakDB:CloneRecord(quickhackPath.."Cost","DeviceAction.DeviceQuickHack_inline1")
+
 	local quickhackCostStatPoolPath = quickhackPath.."Cost"
+
+	if TweakDB:GetRecord(quickhackCostStatPoolPath) == nil then
+		TweakDB:CloneRecord(quickhackCostStatPoolPath,"DeviceAction.DeviceQuickHack_inline1")
+	end
 
 
 	TweakDB:SetFlat(quickhackCostStatPoolPath..".costMods",
@@ -160,17 +200,29 @@ function API.CreateRemoteBreachQuickhack(quickhackName,gameplayCategory,quickhac
 end
 
 function API.CreateCooldown(quickhackName,cooldownTime,uiIconPartName,cooldownDescription_LocKey)
-	TweakDB:CloneRecord("DeviceAction."..quickhackName.."_CooldownActionEffect","DeviceAction.RemoteBreach_inline1")
 	local quickhackObjectActionEffect = "DeviceAction."..quickhackName.."_CooldownActionEffect"
 
-	TweakDB:CloneRecord("DeviceAction."..quickhackName.."_CooldownStatusEffect","BaseStatusEffect.RemoteBreachCooldown")
+	if TweakDB:GetRecord(quickhackObjectActionEffect) == nil then
+		TweakDB:CloneRecord(quickhackObjectActionEffect,"DeviceAction.RemoteBreach_inline1")
+	end
+
 	local durationStatusEffect = "DeviceAction."..quickhackName.."_CooldownStatusEffect"
 
-	TweakDB:CloneRecord("DeviceAction."..quickhackName.."_CooldownDurationModifierGroup","BaseStatusEffect.RemoteBreachCooldown_inline0")
+	if TweakDB:GetRecord(durationStatusEffect) == nil then
+		TweakDB:CloneRecord(durationStatusEffect,"BaseStatusEffect.RemoteBreachCooldown")
+	end
+
 	local durationStatModifierGroup = "DeviceAction."..quickhackName.."_CooldownDurationModifierGroup"
 
-	TweakDB:CloneRecord("DeviceAction."..quickhackName.."_CooldownUIData","BaseStatusEffect.RemoteBreachCooldown_inline2")
+	if TweakDB:GetRecord(durationStatModifierGroup) == nil then
+		TweakDB:CloneRecord(durationStatModifierGroup,"BaseStatusEffect.RemoteBreachCooldown_inline0")
+	end
+
 	local durationUIData = "DeviceAction."..quickhackName.."_CooldownUIData"
+
+	if TweakDB:GetRecord(durationUIData) == nil then
+		TweakDB:CloneRecord(durationUIData,"BaseStatusEffect.RemoteBreachCooldown_inline2")
+	end
 
 	TweakDB:SetFlat(durationUIData..".displayName",cooldownDescription_LocKey)
 	TweakDB:SetFlat(durationUIData..".iconPath",uiIconPartName)
@@ -195,19 +247,25 @@ function API.CreateCooldown(quickhackName,cooldownTime,uiIconPartName,cooldownDe
 end
 
 function API.CreateCooldownPrereq(cooldownObjectAction,cooldownStatusEffect)
-	TweakDB:CloneRecord(cooldownObjectAction.."_Prereq","DeviceAction.RemoteBreach_inline0")
 	local cooldownPath = cooldownObjectAction.."_Prereq"
+	if TweakDB:GetRecord(cooldownPath) == nil then
+		TweakDB:CloneRecord(cooldownPath,"DeviceAction.RemoteBreach_inline0")
+	end
 	TweakDB:SetFlat(cooldownPath..".statusEffect",cooldownStatusEffect)
 	return cooldownPath
 end
 
 function API.CreateQuickhack(quickhackName,gameplayCategory,quickhackInteractionBaseUI,cost,cooldownTime,baseUploadTime)
-	TweakDB:CloneRecord("DeviceAction."..quickhackName,"DeviceAction.PingDevice")
 	local quickhackPath = "DeviceAction."..quickhackName
+	if TweakDB:GetRecord(quickhackPath) == nil then
+		TweakDB:CloneRecord(quickhackPath,"DeviceAction.PingDevice")
+	end
+	local quickhackCostStatPoolPath = quickhackPath.."Cost"
 
 	--local quickhackCostPath = API.CreateQuickhackMemoryStatModifier(quickhackName,"CostValue","Additive",cost)
-	TweakDB:CloneRecord(quickhackPath.."Cost","DeviceAction.DeviceQuickHack_inline1")
-	local quickhackCostStatPoolPath = quickhackPath.."Cost"
+	if TweakDB:GetRecord(quickhackCostStatPoolPath) == nil then
+		TweakDB:CloneRecord(quickhackCostStatPoolPath,"DeviceAction.DeviceQuickHack_inline1")
+	end
 
 	if baseUploadTime ~= 0.0 then
 		local uploadTime = API.CreateQuickhackUploadTimeModifier(quickhackName,"UploadTime","Additive",baseUploadTime)
@@ -270,8 +328,12 @@ end
 ---@param statModifierType String
 ---@param value Float
 function API.CreateQuickhackMemoryStatModifier(quickhackName,modifierName,statModifierType,value)
-	TweakDB:CreateRecord("DeviceAction."..quickhackName.."_"..modifierName,"gamedataConstantStatModifier_Record")
 	local statModifierPath = "DeviceAction."..quickhackName.."_"..modifierName
+
+	if TweakDB:GetRecord(statModifierPath) == nil then
+		TweakDB:CreateRecord(statModifierPath,"gamedataConstantStatModifier_Record")
+	end
+
 	TweakDB:SetFlat(statModifierPath..".modifierType",statModifierType)
 	TweakDB:SetFlat(statModifierPath..".statType","BaseStats.Memory")
 	TweakDB:SetFlat(statModifierPath..".value",value)
@@ -283,8 +345,12 @@ end
 ---@param statModifierType String
 ---@param value Float
 function API.CreateQuickhackMaxDurationModifier(quickhackName,modifierName,statModifierType,value)
-	TweakDB:CreateRecord("DeviceAction."..quickhackName.."_"..modifierName,"gamedataConstantStatModifier_Record")
 	local statModifierPath = "DeviceAction."..quickhackName.."_"..modifierName
+
+	if TweakDB:GetRecord(statModifierPath) == nil then
+		TweakDB:CreateRecord(statModifierPath,"gamedataConstantStatModifier_Record")
+	end
+
 	TweakDB:SetFlat(statModifierPath..".modifierType",statModifierType)
 	TweakDB:SetFlat(statModifierPath..".statType","BaseStats.MaxDuration")
 	TweakDB:SetFlat(statModifierPath..".value",value)
@@ -296,8 +362,11 @@ end
 ---@param statModifierType String
 ---@param value Float
 function API.CreateQuickhackUploadTimeModifier(quickhackName,modifierName,statModifierType,value)
-	TweakDB:CreateRecord("DeviceAction."..quickhackName.."_"..modifierName,"gamedataConstantStatModifier_Record")
 	local statModifierPath = "DeviceAction."..quickhackName.."_"..modifierName
+
+	if TweakDB:GetRecord(statModifierPath) == nil then
+		TweakDB:CreateRecord(statModifierPath,"gamedataConstantStatModifier_Record")
+	end
 	TweakDB:SetFlat(statModifierPath..".modifierType",statModifierType)
 	TweakDB:SetFlat(statModifierPath..".statType","BaseStats.QuickHackUpload")
 	TweakDB:SetFlat(statModifierPath..".value",value)
@@ -307,8 +376,11 @@ end
 
 
 function API.CreateQuickhackGameplayCategory(categoryName,uiIcon,descriptionLocKey,nameLocKey)
-	TweakDB:CloneRecord("ActionCategories."..categoryName,"ActionCategories.Ping")
 	local categoryPath = "ActionCategories."..categoryName
+
+	if TweakDB:GetRecord(categoryPath) == nil then
+		TweakDB:CloneRecord(categoryPath,"ActionCategories.Ping")
+	end
 
 	TweakDB:SetFlat(categoryPath..".friendlyName",categoryName)
 	TweakDB:SetFlat(categoryPath..".iconRecord",uiIcon)
@@ -323,11 +395,18 @@ end
 function API.CreateInteractionUI(interactionUIName,caption_LocKey,description_LocKey,icon_TDBID)
 	local defaultUIName = interactionUIName
 	interactionUIName = "CustomInteractions."..interactionUIName
-	TweakDB:CloneRecord(interactionUIName,"Interactions.PingHack")
+
+	if TweakDB:GetRecord(interactionUIName) == nil then
+		TweakDB:CloneRecord(interactionUIName,"Interactions.PingHack")
+	end
+
 	TweakDB:SetFlat(interactionUIName..".caption",caption_LocKey)
 
 	local captionIcon = "UICaptionIcon."..defaultUIName
-	TweakDB:CreateRecord(captionIcon,"gamedataChoiceCaptionIconPart_Record")
+
+	if TweakDB:GetRecord(captionIcon) == nil then
+		TweakDB:CreateRecord(captionIcon,"gamedataChoiceCaptionIconPart_Record")
+	end
 	TweakDB:SetFlat(captionIcon..".mappinVariant","Mappins.InvalidVariant")
 	TweakDB:SetFlat(captionIcon..".partType","ChoiceCaptionPartType.Icon")
 	TweakDB:SetFlat(captionIcon..".texturePartID",icon_TDBID)
