@@ -3,11 +3,11 @@ import Codeware.UI.*
 
 public class CustomMinigameHackPopup extends InGamePopup
 {
-    protected let m_content: ref<InGamePopupContent>;
-
-    protected let baseWidget: ref<BaseWidget>;
+    public let m_content: ref<InGamePopupContent>;
     
-    protected let canLeavePopup: Bool = true;
+    public let baseWidget: ref<BaseWidget>; 
+
+    public let canLeavePopup: Bool = true;
 
     public func UseCursor() -> Bool
     {
@@ -25,7 +25,7 @@ public class CustomMinigameHackPopup extends InGamePopup
         //this.m_content.m_content.SetAnchorPoint(0.5, 0.5);
         this.m_content.m_content.SetMargin(0, 0, 0, 0);
         this.m_content.m_content.AlignToFill();
-        this.m_content.m_content.SetSize(new Vector2(1920,1080));
+        this.m_content.m_content.SetSize(Vector2(1920,1080));
         
         this.baseWidget = BaseWidget.Create();
         this.baseWidget.SetSize(this.m_content.GetSize());

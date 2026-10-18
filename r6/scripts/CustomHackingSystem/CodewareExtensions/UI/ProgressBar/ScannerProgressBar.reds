@@ -7,14 +7,14 @@
 // -----------------------------------------------------------------------------
 
 module Codeware.UI
-import Codeware.UI.InkAtlas.AtlasScanner2
+import Codeware.UI.InkAtlas.InkAtlas_AtlasScanner
 
 public class ScannerProgressBar extends CustomProgressBar
 {
     //Change the return type by true in order to allow this class to be registered
     //to the Tick Manager
     //(This doesn't mean it will be registered though, you still have to register your object manually)
-    public const func ShouldRegisterForTickEvent() -> Bool
+    public func ShouldRegisterForTickEvent() -> Bool
     {
         return false;
     }
@@ -41,7 +41,7 @@ public class ScannerProgressBar extends CustomProgressBar
         root.AlignToCenter();
         root.SetInteractive(false);
 
-        this.progressBarFrame = inkImage.CreateFromAtlas(AtlasScanner2.AtlasResourcePathRef(), AtlasScanner2.GetProgressBarPath());
+        this.progressBarFrame = inkImage.CreateFromAtlas(InkAtlas_AtlasScanner.AtlasResourcePathRef(), InkAtlas_AtlasScanner.GetPart_Mask_Path());
         this.progressBarFrame.SetFitToContent(true);
         this.progressBarFrame.AlignToFill();
         this.progressBarFrame.SetTintColor(MainColors.DarkRed());
@@ -50,11 +50,11 @@ public class ScannerProgressBar extends CustomProgressBar
 
         this.progressBarFrame.Reparent(root);
         
-        this.progressBarFill = inkImage.CreateFromAtlas(AtlasScanner2.AtlasResourcePathRef(), AtlasScanner2.GetProgressBarPath());
+        this.progressBarFill = inkImage.CreateFromAtlas(InkAtlas_AtlasScanner.AtlasResourcePathRef(), InkAtlas_AtlasScanner.GetPart_Mask_Path());
         this.progressBarFill.SetNineSliceScale(true);
-        this.progressBarFill.SetSize(new Vector2(this.size.X * this.currentValue, this.size.Y));
+        this.progressBarFill.SetSize(Vector2(this.size.X * this.currentValue, this.size.Y));
         this.progressBarFill.SetAnchor(inkEAnchor.CenterLeft);
-        this.progressBarFill.SetAnchorPoint(new Vector2(0.0,0.5));
+        this.progressBarFill.SetAnchorPoint(Vector2(0.0,0.5));
         this.progressBarFill.SetHAlign(inkEHorizontalAlign.Fill);
         this.progressBarFill.SetVAlign(inkEVerticalAlign.Center);
         this.progressBarFill.SetTintColor(MainColors.CombatRed());

@@ -29,37 +29,37 @@ public class CustomHackingSystem extends ScriptableSystem
 	//////////////////////////////////////////////////////////
 
 	//Game Instance, it should be the GetGame from PlayerPuppet (See Initialize function)
-	let gameInstance:GameInstance;
+	public let gameInstance:GameInstance;
 
 	//Custom Settings for the Custom Hack
-	let settings: ref<CustomHackingProperties>;
+	public let settings: ref<CustomHackingProperties>;
 
 	//Current Custom Hack Minigame State
-	let currentMinigameState:HackingMinigameState;
+	public let currentMinigameState:HackingMinigameState;
 
 	//True if the Player is in a Custom Hack
-	let isPlayerCurrentlyHacking:Bool;
+	public let isPlayerCurrentlyHacking:Bool;
 
 	//Hashmap containing all program actions. super omega ultra important when you want script execution after hack
-	let programsHashMap:ref<inkHashMap>;
+	public let programsHashMap:ref<inkHashMap>;
 
 	//Callback for the current hacking state in the blackboard
-	let hackingStateListener:ref<CallbackHandle>;
+	public let hackingStateListener:ref<CallbackHandle>;
 
 	//Callback for the active (succeeded) programs in the blackboard
-	let activeProgramsListener:ref<CallbackHandle>;
+	public let activeProgramsListener:ref<CallbackHandle>;
 	
-	let canRunProgramActions:Bool;
+	public let canRunProgramActions:Bool;
 
 	public let customDeviceActions: ref<CNameIScriptableDictionary>;
 	
 	public let lastActivePrograms:Variant;
 
 	//DelayID used for the quickhack resolver
-	let quickhackResolverDelayID: DelayID;
+	public let quickhackResolverDelayID: DelayID;
 	
 	//Is the module correctly initialized ?
-	let isModuleInitialized:Bool = false;
+	public let isModuleInitialized:Bool = false;
 
 	public func Initialize(gameInstance:GameInstance) -> Void
 	{
@@ -90,10 +90,7 @@ public class CustomHackingSystem extends ScriptableSystem
 				this.Log("[CustomHackingSystem] Initialization failed : Game Instance not valid");
 			}
 		}
-
 	}
-
-
 
 	//Generates all default program actions
 	//If you want to add your own program action, use AddProgramAction in your own scripts
@@ -130,43 +127,43 @@ public class CustomHackingSystem extends ScriptableSystem
 	}
 
 	//Returns the Player Puppet class
-	public const func GetPlayer() -> wref<PlayerPuppet>
+	public func GetPlayer() -> wref<PlayerPuppet>
 	{
 		return GetPlayer(this.gameInstance);
 	}
 	
 	//Returns the Player Puppet Persistent State class
-	public const func GetPlayerPS() -> ref<PlayerPuppetPS>
+	public func GetPlayerPS() -> ref<PlayerPuppetPS>
 	{
 		return GetPlayer(this.gameInstance).GetPS();
 	}
 
 	//Returns the Player Entity ID
-	public const func GetPlayerID() -> EntityID
+	public func GetPlayerID() -> EntityID
 	{
 		return this.GetPlayer().GetEntityID();
 	}
 
 	//Returns the Network Blackbard
-	private const func GetNetworkBB() -> ref<IBlackboard>
+	private func GetNetworkBB() -> ref<IBlackboard>
 	{
 		return GameInstance.GetBlackboardSystem(this.gameInstance).Get(this.GetNetworkBBDef());
 	}
 	
 	//Returns the Network Blackboard Definition
-	private const func GetNetworkBBDef() -> ref<NetworkBlackboardDef>
+	private func GetNetworkBBDef() -> ref<NetworkBlackboardDef>
 	{
 		return GetAllBlackboardDefs().NetworkBlackboard;
 	}
 
 	//Returns the Hacking Minigame Blackboard
-	private const func GetHackingMinigameBB() -> ref<IBlackboard>
+	private func GetHackingMinigameBB() -> ref<IBlackboard>
 	{
 		return GameInstance.GetBlackboardSystem(this.gameInstance).Get(GetAllBlackboardDefs().HackingMinigame);
 	}
 
 	//Returns the Hacking Minigame Blackboard Definition
-	private const func GetHackingMinigameBBDef() -> ref<HackingMinigameDef>
+	private func GetHackingMinigameBBDef() -> ref<HackingMinigameDef>
 	{
 		return GetAllBlackboardDefs().HackingMinigame;
 	}
@@ -192,7 +189,7 @@ public class CustomHackingSystem extends ScriptableSystem
 	}
 
 	//Returns the Current Miniagme Definition from the Settings
-	public const func GetCurrentMinigameDefinition() -> TweakDBID
+	public func GetCurrentMinigameDefinition() -> TweakDBID
 	{
 		return this.settings.minigameDef_TDBID;
 	}
@@ -525,13 +522,13 @@ public class CustomHackingSystem extends ScriptableSystem
 	}
 
 	//On System Attach
-	private func OnAttach() -> Void
+	public func OnAttach() -> Void
 	{
 		this.Log("[CustomHackingSystem] Scriptable System Attached");
 	}
 
 	//On System Detach
-	private func OnDetach() -> Void
+	public func OnDetach() -> Void
 	{
 		this.Log("[CustomHackingSystem] Scriptable System Detached");
 

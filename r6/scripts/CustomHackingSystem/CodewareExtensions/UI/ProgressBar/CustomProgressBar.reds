@@ -8,27 +8,29 @@
 
 module Codeware.UI
 
-public abstract class CustomProgressBar extends HackingMinigameCustomController
+import Elysium.UI.*
+
+public abstract class CustomProgressBar extends CompoundWidget
 {
 
-    public const func AllowDrag() -> Bool
+    public func AllowDrag() -> Bool
 	{
 		return false;
 	}
 
-    protected let m_root: wref<inkCompoundWidget>;
+    public let m_root: wref<inkCompoundWidget>;
     
-    protected let size: Vector2;
+    public let size: Vector2;
     
-    protected let position: Vector2;
+    public let position: Vector2;
 
-    protected let currentValue: Float;
+    public let currentValue: Float;
     
-    protected let previousValue: Float;
+    public let previousValue: Float;
     
-    protected let progressBarFrame: ref<inkImage>;
+    public let progressBarFrame: ref<inkImage>;
     
-    protected let progressBarFill: ref<inkImage>;
+    public let progressBarFill: ref<inkImage>;
 
 	protected cb func OnCreate() -> Void
     {
@@ -69,7 +71,7 @@ public abstract class CustomProgressBar extends HackingMinigameCustomController
 
 	public func SetPosition(x: Float, y: Float) -> Void
     {
-        this.SetPosition(new Vector2(x, y));
+        this.SetPosition(Vector2(x, y));
 	}
 
 	public func SetPosition(newPosition: Vector2) -> Void {

@@ -6,7 +6,7 @@
 //
 // -----------------------------------------------------------------------------
 
-public static func OperatorMultiply(a: HDRColor, b: Float) -> HDRColor
+public func OperatorMultiply(a: HDRColor, b: Float) -> HDRColor
 {
 	a.Red *= b;
 	a.Green *= b;
@@ -15,7 +15,7 @@ public static func OperatorMultiply(a: HDRColor, b: Float) -> HDRColor
 	return a;
 }
 
-public static func OperatorDivide(a: HDRColor, b: Float) -> HDRColor
+public func OperatorDivide(a: HDRColor, b: Float) -> HDRColor
 {
 	a.Red /= b;
 	a.Green /= b;

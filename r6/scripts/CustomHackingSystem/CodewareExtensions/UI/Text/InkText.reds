@@ -7,25 +7,23 @@
 // -----------------------------------------------------------------------------
 
 module Codeware.UI
+import Elysium.UI.*
 
-public class InkTextWidget extends HackingMinigameCustomController
+public class InkTextWidget extends CompoundWidget
 {
-
-    protected let root: wref<inkCompoundWidget>;
+    public let root: wref<inkCompoundWidget>;
     
-    protected let textWidget: ref<inkText>;
+    public let textWidget: ref<inkText>;
    
-    protected let position: Vector2;
+    public let position: Vector2;
    
-    protected let size: Vector2;
+    public let size: Vector2;
     
-    protected let opacity: Float;
+    public let opacity: Float;
     
-    protected let text: String;
+    public let text: String;
 
-
-
-    public const func AllowDrag() -> Bool
+    public func AllowDrag() -> Bool
 	{
 		return false;
 	}
@@ -83,7 +81,7 @@ public class InkTextWidget extends HackingMinigameCustomController
 
 	public func SetPosition(x: Float, y: Float) -> Void
     {
-        this.SetPosition(new Vector2(x, y));
+        this.SetPosition(Vector2(x, y));
 	}
 
 	public func SetPosition(newPosition: Vector2) -> Void
@@ -145,8 +143,4 @@ public class InkTextWidget extends HackingMinigameCustomController
 
         return textWidget;
     }
-
-
-
-
 }

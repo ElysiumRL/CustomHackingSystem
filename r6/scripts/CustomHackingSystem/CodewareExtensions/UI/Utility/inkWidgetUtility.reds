@@ -13,7 +13,7 @@ module Codeware.UI
 @addMethod(inkWidget)
 public func AlignToCenter() -> Void
 {
-    this.SetAnchorPoint(new Vector2(0.5, 0.5));
+    this.SetAnchorPoint(Vector2(0.5, 0.5));
     this.SetAnchor(inkEAnchor.Centered);
     this.SetHAlign(inkEHorizontalAlign.Center);
     this.SetVAlign(inkEVerticalAlign.Center);

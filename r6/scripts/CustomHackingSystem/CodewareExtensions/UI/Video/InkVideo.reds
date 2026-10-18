@@ -7,16 +7,17 @@
 // -----------------------------------------------------------------------------
 
 module Codeware.UI
+import Elysium.UI.*
 
 public class BufferVideoEvent extends DelayCallback
 {
-    let controller: wref<InkVideoWidget>;
-    
-    let callbackToDelay:ref<DelayCallback>;
+    public let controller: wref<InkVideoWidget>;
 
-    let timeOffset:Float;
+    public let callbackToDelay:ref<DelayCallback>;
 
-    let useTimeOffset:Bool;
+    public let timeOffset:Float;
+
+    public let useTimeOffset:Bool;
     
     public func Call() -> Void
     {
@@ -46,25 +47,25 @@ public class BufferVideoEvent extends DelayCallback
     }
 }
 
-public class InkVideoWidget extends HackingMinigameCustomController
+public class InkVideoWidget extends CompoundWidget
 {
 
-    protected let root: wref<inkCompoundWidget>;
+    public let root: wref<inkCompoundWidget>;
     
-    protected let video: ref<inkVideo>;
+    public let video: ref<inkVideo>;
    
-    protected let position: Vector2;
+    public let position: Vector2;
    
-    protected let size: Vector2;
+    public let size: Vector2;
     
-    protected let opacity: Float;
+    public let opacity: Float;
     
-    protected let isBackground: Bool;
+    public let isBackground: Bool;
     
-    protected let videoPath: ResRef;
+    public let videoPath: ResRef;
 
 ////////////////////////////////
-    public const func AllowDrag() -> Bool
+    public func AllowDrag() -> Bool
 	{
 		return false;
 	}
@@ -169,7 +170,7 @@ public class InkVideoWidget extends HackingMinigameCustomController
 
 	public func SetPosition(x: Float, y: Float) -> Void
     {
-        this.SetPosition(new Vector2(x, y));
+        this.SetPosition(Vector2(x, y));
 	}
 
 	public func SetPosition(newPosition: Vector2) -> Void

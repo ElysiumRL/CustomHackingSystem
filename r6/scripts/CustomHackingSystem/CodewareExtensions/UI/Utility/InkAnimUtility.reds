@@ -144,7 +144,7 @@ public func GlitchIn(
 }
 //Taken from codeware : Journal.reds
 @addMethod(inkWidget)
-public func FadeInEntry(opt playAnim: Bool,opt playReversed: Bool, opt useWidgetOriginalLocation:Bool, opt executionDelay: Float) -> Void
+public func FadeInEntry(opt playAnim: Bool, opt playReversed: Bool, opt useWidgetOriginalLocation:Bool, opt executionDelay: Float) -> Void
 {
 	let marginAnim: ref<inkAnimMargin> = new inkAnimMargin();
     if(useWidgetOriginalLocation)
@@ -157,8 +157,8 @@ public func FadeInEntry(opt playAnim: Bool,opt playReversed: Bool, opt useWidget
     }
     else
     {
-        marginAnim.SetStartMargin(new inkMargin(40.0, 0.0, 0.0, 0.0));
-	    marginAnim.SetEndMargin(new inkMargin(0.0, 0.0, 0.0, 0.0));
+        marginAnim.SetStartMargin(inkMargin(40.0, 0.0, 0.0, 0.0));
+	    marginAnim.SetEndMargin(inkMargin(0.0, 0.0, 0.0, 0.0));
     }
 	marginAnim.SetMode(inkanimInterpolationMode.EasyOut);
 	marginAnim.SetDuration(0.25);

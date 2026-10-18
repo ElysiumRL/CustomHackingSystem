@@ -35,7 +35,7 @@ public class CustomAccessBreach extends PuppetAction
 		this.m_attempt = amount;
 	}
 
-	private func StartUpload(gameInstance: GameInstance) -> Void
+	public func StartUpload(gameInstance: GameInstance) -> Void
 	{
 		let breachListener: ref<AccessBreachListener>;
 		let statPoolSys: ref<StatPoolsSystem> = GameInstance.GetStatPoolsSystem(gameInstance);
@@ -49,7 +49,7 @@ public class CustomAccessBreach extends PuppetAction
 		statPoolSys.RequestAddingStatPool(Cast<StatsObjectID>(this.m_requesterID), t"BaseStatPools.BaseQuickHackUpload");
 	}
 
-	private func CompleteAction(gameInstance: GameInstance) -> Void
+	public func CompleteAction(gameInstance: GameInstance) -> Void
 	{
 		super.CompleteAction(gameInstance);
 
@@ -68,17 +68,17 @@ public class CustomAccessBreach extends PuppetAction
 		this.SendNanoWireBreachEventToPSM(n"NanoWireRemoteBreach", true, gameInstance);
 	}
 
-	private final func GetNetworkBlackboard(gameInstance: GameInstance) -> ref<IBlackboard>
+	public func GetNetworkBlackboard(gameInstance: GameInstance) -> ref<IBlackboard>
 	{
 		return GameInstance.GetBlackboardSystem(gameInstance).Get(this.GetNetworkBlackboardDef());
 	}
 
-	private final func GetNetworkBlackboardDef() -> ref<NetworkBlackboardDef>
+	public func GetNetworkBlackboardDef() -> ref<NetworkBlackboardDef>
 	{
 		return GetAllBlackboardDefs().NetworkBlackboard;
 	}
 
-	private final func SendNanoWireBreachEventToPSM(id: CName, isActive: Bool, gameInstance: GameInstance) -> Void
+	public func SendNanoWireBreachEventToPSM(id: CName, isActive: Bool, gameInstance: GameInstance) -> Void
 	{
 		let psmEvent: ref<PSMPostponedParameterBool> = new PSMPostponedParameterBool();
 		psmEvent.id = id;

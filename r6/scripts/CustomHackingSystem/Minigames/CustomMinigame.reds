@@ -2,34 +2,34 @@ module HackingExtensions.CustomMinigame
 import Codeware.UI.*
 import HackingExtensions.*
 import HackingExtensions.Programs.*
-
+import Elysium.UI.*
 
 //Default Custom Minigame Template : All your new minigames should extend this class
-public abstract class CustomMinigame extends HackingMinigameCustomController
+public abstract class CustomMinigame extends CompoundWidget
 {
 
     //Widget Root
-    protected let root: wref<inkCompoundWidget>;
+    public let root: wref<inkCompoundWidget>;
 
     //Widget Parent
-    protected let popupParent: ref<CustomMinigameHackPopup>;
+    public let popupParent: ref<CustomMinigameHackPopup>;
 
     //Minigame State
-    protected let minigameState: HackingMinigameState = HackingMinigameState.Unknown;
+    public let minigameState: HackingMinigameState = HackingMinigameState.Unknown;
     
     //Minigame Instance State. This is useful when you want to replay multiple times the same small minigame but for different programs
-    protected let minigameInstanceState: HackingMinigameState = HackingMinigameState.Unknown;
+    public let minigameInstanceState: HackingMinigameState = HackingMinigameState.Unknown;
 
     //List of all the programs in the minigame
-    protected let allProgramsTDBID: array<TweakDBID>;
+    public let allProgramsTDBID: array<TweakDBID>;
 
     //List of resolved programs
-    protected let resolvedPrograms: array<TweakDBID>;
+    public let resolvedPrograms: array<TweakDBID>;
 
     //Current program being tested (generally use this if the minigame is separated into instances)
-    protected let currentProgramIndex: Int32;
+    public let currentProgramIndex: Int32;
 
-    protected let accessPoint : ref<AccessPoint>;
+    public let accessPoint : ref<AccessPoint>;
 
     //Here should be the place where all the minigame default values are set
     public func SetMinigameDefaults() -> Void
@@ -114,26 +114,26 @@ public abstract class CustomMinigame extends HackingMinigameCustomController
     }
 
     //Called after Game instance Success/Failure function
-    public func OnEndGameInstance() -> Void
+    public func OnEndGameInstance() -> Void 
     {
 
     }
 
     //Updated every tick
-	public func TickUpdate(deltaTime: Float) -> Void
+	public func Update(deltaTime: Float) -> Void
 	{
-        super.TickUpdate(deltaTime);
+        super.Update(deltaTime);
     }
 
     //Override this as "true" to register the object for tick updates
-    public const func ShouldRegisterForTickEvent() -> Bool
+    public func ShouldRegisterForTickEvent() -> Bool
 	{
 		return true;
 	}
 
     //This is a copy/paste from CustomHackingSystem but with some minor tweaks
     //This version doesn't have to handle all the weird things that happen with the base HackingMinigame
-    protected func HandleResolvedPrograms() -> Void
+    public func HandleResolvedPrograms() -> Void
     {
         let container: ref<ScriptableSystemsContainer> = GameInstance.GetScriptableSystemsContainer(this.GetGame());
 	    let hackSystem:ref<CustomHackingSystem> = container.Get(n"HackingExtensions.CustomHackingSystem") as CustomHackingSystem;

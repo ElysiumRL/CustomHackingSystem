@@ -8,6 +8,7 @@
 // -----------------------------------------------------------------------------
 
 module Codeware.UI
+import Elysium.UI.*
 
 @addMethod(inkImage)
 public static func CreateFromAtlas(resourcePath: ResRef, partName: CName) -> ref<inkImage> 
@@ -20,32 +21,30 @@ public static func CreateFromAtlas(resourcePath: ResRef, partName: CName) -> ref
 	return image;
 }
 
-public class InkImageWidget extends HackingMinigameCustomController
+public class InkImageWidget extends CompoundWidget
 {
+    public let root: wref<inkCompoundWidget>;
 
-    protected let root: wref<inkCompoundWidget>;
+    public let image: ref<inkImage>;
 
-    protected let image: ref<inkImage>;
+    public let position: Vector2;
 
-    protected let position: Vector2;
+    public let size: Vector2;
 
-    protected let size: Vector2;
+    public let opacity: Float;
 
-    protected let opacity: Float;
+    public let isBackground: Bool;
 
-    protected let isBackground: Bool;
+    public let atlasResource: ResRef;
 
-    protected let atlasResource: ResRef;
-
-    protected let texturePart: CName;
+    public let texturePart: CName;
    
-    public const func ShouldRegisterForTickEvent() -> Bool
+    public func ShouldRegisterForTickEvent() -> Bool
 	{
 		return false;
 	}
 
-////////////////////////////////
-    public const func AllowDrag() -> Bool
+    public func AllowDrag() -> Bool
 	{
 		return false;
 	}
@@ -54,7 +53,7 @@ public class InkImageWidget extends HackingMinigameCustomController
     {
 		super.OnPress(evt);
     }
-////////////////////////////////
+
     protected cb func OnCreate() -> Void
     {
         super.OnCreate();
@@ -108,7 +107,7 @@ public class InkImageWidget extends HackingMinigameCustomController
 
 	public func SetPosition(x: Float, y: Float) -> Void
     {
-        this.SetPosition(new Vector2(x, y));
+        this.SetPosition(Vector2(x, y));
 	}
 
 	public func SetPosition(newPosition: Vector2) -> Void

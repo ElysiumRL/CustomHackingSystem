@@ -1,16 +1,17 @@
 module HackingExtensions.CustomMinigame
 import Codeware.UI.*
 //import Codeware.Localization.*
+import Elysium.UI.*
 
 //Also named "Workbench" from InkPlayground
 //This is the base widget for the popups
-public class BaseWidget extends HackingMinigameCustomController
+public class BaseWidget extends CompoundWidget
 {
-	protected let m_root: wref<inkFlex>;
+	public let m_root: wref<inkFlex>;
 
-	protected let m_container: wref<inkCanvas>;
+	public let m_container: wref<inkCanvas>;
 
-	protected let m_areaSize: Vector2;
+	public let m_areaSize: Vector2;
 
 	protected cb func OnCreate() -> Void {
 		let workbench: ref<inkFlex> = new inkFlex();
@@ -36,7 +37,7 @@ public class BaseWidget extends HackingMinigameCustomController
 		pattern.SetAnchor(inkEAnchor.Fill);
 		pattern.SetOpacity(0.1);
 		pattern.SetTintColor(MainColors.Red());
-		pattern.SetMargin(new inkMargin(8.0, 4.0, 8.0, 2.0));
+		pattern.SetMargin(inkMargin(8.0, 4.0, 8.0, 2.0));
 		pattern.Reparent(workbench);
 
 		let frame: ref<inkImage> = new inkImage();
@@ -44,7 +45,7 @@ public class BaseWidget extends HackingMinigameCustomController
 		frame.SetAtlasResource(r"base\\gameplay\\gui\\fullscreen\\inventory\\inventory4_atlas.inkatlas");
 		frame.SetTexturePart(n"itemGridFrame3Big");
 		frame.SetNineSliceScale(true);
-		frame.SetNineSliceGrid(new inkMargin(24, 24, 24, 24));
+		frame.SetNineSliceGrid(inkMargin(24, 24, 24, 24));
 		frame.SetAnchor(inkEAnchor.Fill);
 		frame.SetOpacity(0.5);
 		frame.SetTintColor(MainColors.Red());

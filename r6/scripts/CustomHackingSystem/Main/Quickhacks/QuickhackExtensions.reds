@@ -31,7 +31,7 @@ public final static func TranslateActionsIntoQuickSlotCommands(const actions: ar
     for quickhack in customHackSystem.customDeviceActions.GetValues()
     {
       let quickhackCasted: ref<ScriptableDeviceAction> = quickhack as ScriptableDeviceAction;
-      let newPlayerQuickhackData: PlayerQuickhackData = new PlayerQuickhackData(ItemID.None(),quickhackCasted.GetObjectActionRecord(),5);
+      let newPlayerQuickhackData: PlayerQuickhackData = PlayerQuickhackData(ItemID.None(),quickhackCasted.GetObjectActionRecord(),5);
       ArrayPush(playerQHacksList,newPlayerQuickhackData);
     }
 
